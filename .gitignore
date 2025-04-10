@@ -1,3 +1,8 @@
-node_module/
-# Ignorar archivo de configuración
+# Ignorar node_modules en todo el proyecto
+node_modules/
+
+# Ignorar archivos de entorno (tanto en backend como en frontend)
 .env
+*.env
+.env.local
+.env*.local
