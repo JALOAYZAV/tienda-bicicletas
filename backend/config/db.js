@@ -3,6 +3,7 @@
  * @description Configuración de conexión a la base de datos SQL Server para el backend de CRETO.
  * Utiliza variables de entorno desde .env y establece un pool de conexiones con MSSQL.
  */
+
 const sql = require('mssql');
 require('dotenv').config(); // Carga variables de entorno desde el archivo .env
 
