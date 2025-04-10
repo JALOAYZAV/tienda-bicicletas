@@ -80,7 +80,63 @@ const registerUser = async (req, res) => {
   }
 };
 
+const jwt = require('jsonwebtoken');
+
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const pool = await poolPromise;
+
+    // Buscar usuario por email
+    const result = await pool
+      .request()
+      .input('email', sql.VarChar, email)
+      .query('SELECT * FROM users WHERE email = @email');
+
+    const user = result.recordset[0];
+
+    if (!user) {
+      return res.status(401).json({ message: 'Usuario no encontrado' });
+    }
+
+    // Comparar contraseña con hash
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Contraseña incorrecta' });
+    }
+
+    // Crear token JWT
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        name: user.name,
+        email: user.email,
+        role_id: user.role_id,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '2h' }
+    );
+
+    // Enviar token
+    res.status(200).json({
+      message: 'Login exitoso',
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role_id: user.role_id,
+      },
+    });
+  } catch (error) {
+    console.error('Error en login:', error);
+    res.status(500).json({ message: 'Error del servidor' });
+  }
+};
+
 module.exports = {
   getUsers,
   registerUser,
+  loginUser
 };

@@ -6,7 +6,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { getUsers, registerUser } = require('../controllers/authController');
+const { getUsers, registerUser, loginUser } = require('../controllers/authController');
 
 /**
  * @route GET /api/users
@@ -21,5 +21,12 @@ router.get('/users', getUsers);
  * @access Público
  */
 router.post('/register', registerUser);
+
+/**
+ * @route POST /api/login
+ * @description Autentica a un usuario y devuelve un token de acceso
+ * @access Público
+ */
+router.post('/login', loginUser);
 
 module.exports = router;
