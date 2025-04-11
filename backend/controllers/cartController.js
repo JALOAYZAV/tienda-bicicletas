@@ -4,17 +4,60 @@ const getCart = async (req, res) => {
   try {
     const userId = req.user.userId;
     const pool = await poolPromise;
-    const result = await pool
+
+    // 1. Verificar si el usuario existe
+    const userCheck = await pool
       .request()
       .input('user_id', sql.Int, userId)
-      .query('SELECT * FROM cart WHERE user_id = @user_id');
+      .query('SELECT id FROM users WHERE id = @user_id');
 
-    res.status(200).json(result.recordset);
+    if (userCheck.recordset.length === 0) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    // 2. Obtener carrito con información completa de productos
+    const result = await pool.request().input('user_id', sql.Int, userId)
+      .query(`
+        SELECT 
+          c.id,
+          c.quantity,
+          p.id AS product_id,
+          p.name,
+          p.price,
+          p.image_url,
+          p.stock
+        FROM cart c
+        JOIN products p ON c.product_id = p.id
+        WHERE c.user_id = @user_id
+      `);
+
+    // 3. Formatear respuesta
+    const cartItems = result.recordset.map((item) => ({
+      cart_item_id: item.id,
+      quantity: item.quantity,
+      product: {
+        id: item.product_id,
+        name: item.name,
+        price: item.price,
+        image_url: item.image_url,
+        stock: item.stock,
+      },
+    }));
+
+    res.status(200).json({
+      success: true,
+      count: cartItems.length,
+      data: cartItems,
+    });
   } catch (error) {
     console.error('Error al obtener el carrito:', error);
-    res.status(500).json({ message: 'Error del servidor' });
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor al obtener el carrito',
+    });
   }
 };
+
 
 const addToCart = async (req, res) => {
   try {

@@ -56,7 +56,8 @@ const productRoutes = require('./routes/productRoutes');
 
 // Prefijo común para las rutas protegidas
 app.use('/api', profileRoutes);
-app.use('/api', cartRoutes);
+// app.use('/api', cartRoutes);
+app.use('/api/cart', cartRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', productRoutes);
 
@@ -70,6 +71,15 @@ app.use('/api', productRoutes);
  */
 app.get('/', (req, res) => {
   res.send('Servidor funcionando y esperando conexiones SQL');
+});
+
+console.log('Rutas registradas:');
+app._router.stack.forEach((layer) => {
+  if (layer.route) {
+    console.log(
+      `${layer.route.stack[0].method.toUpperCase()} ${layer.route.path}`
+    );
+  }
 });
 
 // ========================
