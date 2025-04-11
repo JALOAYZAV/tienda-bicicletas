@@ -1,7 +1,7 @@
 /**
  * @file index.js
  * @description Punto de entrada principal del servidor backend de la tienda CRETO.
- * Configura el servidor Express, aplica middlewares y registra las rutas.
+ * Configura el servidor Express, aplica middlewares y registra las rutas protegidas y públicas.
  */
 
 const express = require('express');
@@ -17,7 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // ========================
-// Middlewares
+// Middlewares Globales
 // ========================
 
 /**
@@ -31,22 +31,38 @@ app.use(cors());
 app.use(express.json());
 
 // ========================
-// Rutas
+// Rutas públicas
 // ========================
 
 /**
  * Importación de las rutas de autenticación de usuarios
+ * (registro, login, obtener usuarios - sin token)
  */
 const userRoutes = require('./routes/authRoutes');
-
-/**
- * Prefijo '/api' para todas las rutas definidas en userRoutes
- * Por ejemplo: /api/register, /api/users
- */
 app.use('/api', userRoutes);
 
 // ========================
-// Ruta de prueba (GET /)
+// Rutas protegidas con JWT
+// ========================
+
+/**
+ * Importación de las rutas protegidas que requieren token JWT
+ */
+
+const profileRoutes = require('./routes/profileRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const productRoutes = require('./routes/productRoutes');
+
+// Prefijo común para las rutas protegidas
+app.use('/api', profileRoutes);
+app.use('/api', cartRoutes);
+app.use('/api', orderRoutes);
+app.use('/api', productRoutes);
+
+
+// ========================
+// Ruta base de prueba (GET /)
 // ========================
 
 /**
