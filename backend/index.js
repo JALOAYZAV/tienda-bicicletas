@@ -36,7 +36,7 @@ app.use(express.json());
 
 /**
  * Importación de las rutas de autenticación de usuarios
- * (registro, login, obtener usuarios - sin token)
+ * (registro, login, obtener usuarios - sin token por ahora)
  */
 const userRoutes = require('./routes/authRoutes');
 app.use('/api', userRoutes);
@@ -48,19 +48,18 @@ app.use('/api', userRoutes);
 /**
  * Importación de las rutas protegidas que requieren token JWT
  */
-
 const profileRoutes = require('./routes/profileRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const productRoutes = require('./routes/productRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 // Prefijo común para las rutas protegidas
 app.use('/api', profileRoutes);
-// app.use('/api', cartRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', productRoutes);
-
+app.use('/api', categoryRoutes);
 
 // ========================
 // Ruta base de prueba (GET /)
@@ -73,15 +72,6 @@ app.get('/', (req, res) => {
   res.send('Servidor funcionando y esperando conexiones SQL');
 });
 
-console.log('Rutas registradas:');
-app._router.stack.forEach((layer) => {
-  if (layer.route) {
-    console.log(
-      `${layer.route.stack[0].method.toUpperCase()} ${layer.route.path}`
-    );
-  }
-});
-
 // ========================
 // Levantar el servidor
 // ========================
@@ -91,4 +81,17 @@ app._router.stack.forEach((layer) => {
  */
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+
+  // Mostrar las rutas registradas
+  if (app._router && app._router.stack) {
+    console.log('📌 Rutas registradas:');
+    app._router.stack.forEach((layer) => {
+      if (layer.route && layer.route.stack.length > 0) {
+        const method = layer.route.stack[0].method.toUpperCase();
+        console.log(`${method} ${layer.route.path}`);
+      }
+    });
+  } else {
+    console.log('⚠️ No se encontraron rutas registradas.');
+  }
 });
