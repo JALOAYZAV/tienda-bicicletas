@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Env files
+.env
+.env.test
+
+# Logs
+npm-debug.log*
+logs/
+uploads/
