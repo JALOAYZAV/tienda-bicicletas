@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Iniciar Sesion";
+---
+
+<Layout title = {pageTitle}>
+    <header>
+        <h1 class="text-amber-300 bg-black text-center text-3xl font-extrabold py-4 absolute w-full">INICIAR SESION</h1>
+    </header>
+    <main class="w-full h-screen grid place-items-center bg-gray-200">
+        <form action="" class="shadow-2xl w-[350px] rounded-lg mx-auto px-5 py-5 text-center bg-amber-300">
+            <img src="/src/assets/img_users.png" alt="imgUsuario" class="w-[100px] my-5 mx-auto">
+            <input class="border-amber-600 rounded-md w-full py-1 px-2 bg-amber-50" type="email" placeholder="Correo Electrónico">
+            <input class="border-amber-600 rounded-md w-full py-1 px-2 bg-amber-50 mt-4" type="password" placeholder="Contraseña">
+            <button class="w-full bg-black text-amber-300 mt-4 py-2 px-3 rounded-lg font-extrabold cursor-pointer active:bg-gray-800 text-xl">Iniciar Sesión</button>
+            <h2 class="font-semibold mt-3 text-sm"><a href="#">¿Olvidaste tu contraseña?</a></h2>
+            <h2 class="font-semibold mt-1 text-sm">¿No tienes cuenta? ➡️<a class="ml-2" href="register">Regístrate</a></h2>
+        </form>
+    </main>
+
+</Layout>

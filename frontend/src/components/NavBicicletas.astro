@@ -1,0 +1,56 @@
+---
+// Componente Carousel.astro
+const images = [
+    "/src/assets/bicicletas/prod-1.png",
+    "/src/assets/bicicletas/prod-2.png",
+    "/src/assets/bicicletas/prod-3.png",
+    "/src/assets/bicicletas/prod-4.png",
+    "/src/assets/bicicletas/prod-5.png",
+    "/src/assets/bicicletas/prod-6.png",
+    "/src/assets/bicicletas/prod-7.png",
+    "/src/assets/bicicletas/prod-8.png",
+    "/src/assets/bicicletas/prod-9.png",
+    "/src/assets/bicicletas/prod-10.png",
+    "/src/assets/bicicletas/prod-11.png",
+    "/src/assets/bicicletas/prod-12.png",
+];
+---
+
+<div class="relative w-full max-w-lg mx-auto overflow-hidden">
+    <div id="carousel" class="relative h-80">
+        {images.map((src, index) => (
+        <img 
+            src={src} 
+            class={`absolute w-full h-full object-cover transition-opacity duration-500 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} 
+            alt={`Imagen ${index + 1}`} 
+            data-index={index}
+        />
+        ))}
+    </div>
+
+    <!-- Botones -->
+    <button id="prev" class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black/50 text-white px-2 py-1 rounded">⬅</button>
+    <button id="next" class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black/50 text-white px-2 py-1 rounded">➡</button>
+
+    <script type="module">
+        const images = document.querySelectorAll('#carousel img');
+        let index = 0;
+
+        const showImage = (i) => {
+        images.forEach((img, idx) => {
+            img.classList.toggle('opacity-100', idx === i);
+            img.classList.toggle('opacity-0', idx !== i);
+        });
+        }
+
+        document.getElementById('next').addEventListener('click', () => {
+        index = (index + 1) % images.length;
+        showImage(index);
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+        index = (index - 1 + images.length) % images.length;
+        showImage(index);
+        });
+    </script>
+</div>

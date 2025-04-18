@@ -1,14 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import NavBicicletas from '../components/NavBicicletas.astro';
 ---
 
 <Layout>
   <main class="min-h-screen bg-gray-100 p-8">
-    <h1 class="text-4xl font-bold text-center text-blue-700 mb-4">
-      ¡Bienvenido a la Tienda de Bicicletas!
-    </h1>
-    <p class="text-lg text-center text-gray-600">
-      Descubre nuestras bicicletas y haz tu pedido online.
-    </p>
+    <Header/>
+    <div class="w-full text-center mt-10 text-4xl font-extrabold mb-10">
+      <h1>LAS MEJORES BICICLETAS PARA TÍ</h1>
+    </div>
+    <NavBicicletas/>
   </main>
 </Layout>

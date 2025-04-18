@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Registrarse";
+---
+
+<Layout title = {pageTitle}>
+    <header>
+        <h1 class="text-amber-300 bg-black text-center text-3xl font-extrabold py-4 absolute w-full">REGISTRARSE</h1>
+    </header>
+    <main class="w-full h-screen grid place-items-center bg-gray-200">
+        <form action="" class="shadow-2xl w-[350px] rounded-lg mx-auto px-5 py-5 text-center bg-amber-300">
+            <img src="/src/assets/img_users.png" alt="imgUsuario" class="w-[100px] my-5 mx-auto">
+            <input class="border-amber-600 rounded-md w-full py-1 px-2 bg-amber-50" type="text" placeholder="Nombre y Apellido">
+            <input class="border-amber-600 rounded-md w-full py-1 px-2 bg-amber-50 mt-4" type="text" placeholder="Nombre de Usuario">
+            <input class="border-amber-600 rounded-md w-full py-1 px-2 bg-amber-50 mt-4" type="email" placeholder="Correo Electrónico">
+            <input class="border-amber-600 rounded-md w-full py-1 px-2 bg-amber-50 mt-4" type="password" placeholder="Contraseña">
+            <input class="border-amber-600 rounded-md w-full py-1 px-2 bg-amber-50 mt-4" type="password" placeholder="Confirmar Contraseña">
+            <button class="w-full bg-black text-amber-300 mt-4 py-2 px-3 rounded-lg font-extrabold cursor-pointer active:bg-gray-800 text-xl">Registrarse</button>
+            <!-- <div class="w-full h-0.5 bg-amber-400 mt-4"></div> -->
+            <div class="flex items-center justify-center my-2">
+                <input type="checkbox">
+                <h2 class="font-semibold text-sm ml-2"><a href="#">Aceptar terminos y condiciones</a></h2>
+            </div>
+            
+            <h2 class="font-semibold mt-1 text-sm">¿Ya tienes cuenta? ➡️<a class="ml-2" href="login">Iniciar sesión</a></h2>
+        </form>
+    </main>
+
+</Layout>
