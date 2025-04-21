@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+// Verifica si el token JWT es válido
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -20,6 +21,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Verifica si el usuario tiene rol admin (role_id === 2)
 const isAdmin = (req, res, next) => {
   if (!req.user) {
     return res.status(401).json({ message: 'No autorizado' });
