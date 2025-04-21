@@ -80,6 +80,13 @@ const createProduct = async (req, res) => {
         .json({ success: false, message: 'Faltan campos obligatorios' });
     }
 
+    // ✅ Validación agregada: el precio debe ser mayor a cero
+    if (price <= 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'El precio debe ser mayor a cero' });
+    }
+
     const pool = await poolPromise;
     await pool
       .request()

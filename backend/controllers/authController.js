@@ -1,18 +1,6 @@
-/**
- * @file authController.js
- * @description Controladores para autenticación de usuarios: obtener usuarios y registrar nuevos.
- */
-
 const { poolPromise, sql } = require('../config/db');
 const bcrypt = require('bcryptjs');
 
-/**
- * @function getUsers
- * @description Obtiene todos los usuarios registrados en la base de datos.
- * @route GET /api/users
- * @param {Object} req - Objeto de solicitud (request) de Express.
- * @param {Object} res - Objeto de respuesta (response) de Express.
- */
 const getUsers = async (req, res) => {
   try {
     const pool = await poolPromise;
@@ -24,13 +12,6 @@ const getUsers = async (req, res) => {
   }
 };
 
-/**
- * @function registerUser
- * @description Registra un nuevo usuario con su información. Verifica duplicados y encripta la contraseña.
- * @route POST /api/register
- * @param {Object} req - Objeto de solicitud (request) de Express, con los datos del nuevo usuario.
- * @param {Object} res - Objeto de respuesta (response) de Express.
- */
 const registerUser = async (req, res) => {
   try {
     const {
@@ -42,10 +23,18 @@ const registerUser = async (req, res) => {
       role_id,
     } = req.body;
 
+    // Validar datos básicos
     if (!name || !email || !password) {
       return res
         .status(400)
         .json({ message: 'Nombre, email y contraseña son obligatorios' });
+    }
+
+    // Validar longitud de contraseña
+    if (password.length < 6) {
+      return res.status(400).json({
+        message: 'La contraseña debe tener al menos 6 caracteres',
+      });
     }
 
     const pool = await poolPromise;

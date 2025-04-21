@@ -4,6 +4,8 @@ node_modules/
 # Env files
 .env
 .env.test
+*.env
+
 
 # Logs
 npm-debug.log*

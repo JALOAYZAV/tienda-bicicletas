@@ -91,6 +91,22 @@ const deleteCategory = async (req, res) => {
   try {
     const categoryId = parseInt(req.params.id);
     const pool = await poolPromise;
+
+    // ✅ Validación agregada: impedir eliminar categoría con productos asociados
+    const result = await pool
+      .request()
+      .input('id', sql.Int, categoryId)
+      .query('SELECT COUNT(*) AS count FROM products WHERE category_id = @id');
+
+    if (result.recordset[0].count > 0) {
+      return res.status(400).json({
+        success: false,
+        message:
+          'No se puede eliminar la categoría. Tiene productos asociados.',
+      });
+    }
+
+    // Eliminación de la categoría
     await pool
       .request()
       .input('id', sql.Int, categoryId)
