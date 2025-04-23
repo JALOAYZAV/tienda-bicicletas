@@ -1,0 +1,33 @@
+<!-- Header -->
+<header class="bg-white shadow-md fixed w-full z-50">
+    <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <button class="md:hidden mr-4" id="menu-toggle">
+                <ion-icon name="menu-outline" class="text-2xl"></ion-icon>
+            </button>
+            <a href="/" class="text-2xl font-bold text-gray-800">Creto</a>
+        </div>
+        
+        <div class="hidden md:flex space-x-8">
+            <a href="/" class="text-gray-600 hover:text-gray-900">Inicio</a>
+            <a href="/products" class="text-gray-600 hover:text-gray-900">Productos</a>
+            <a href="/contact" class="text-gray-600 hover:text-gray-900">Contacto</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button id="cart-toggle" class="p-2 hover:bg-gray-100 rounded-full">
+                <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
+            </button>
+            <a href="/login.html" class="p-2 hover:bg-gray-100 rounded-full">
+                <ion-icon name="person-outline" class="text-2xl"></ion-icon>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+        <a href="/" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Inicio</a>
+        <a href="/products" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Productos</a>
+        <a href="/contact" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Contacto</a>
+    </div>
+</header>

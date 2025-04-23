@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const apiUrl = 'http://localhost:3000/api/products';
+const response = await fetch(apiUrl);
+const { success, data: products } = await response.json();
+
+if (!success || !Array.isArray(products)) {
+  throw new Error('Error al obtener productos');
+}
+
+// Depura los datos
+console.log(products);
+---
+
+<Layout title="Catálogo de Bicicletas">
+
+  <Header title="Bienvenido a la Tienda de Bicicletas" />
+
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-8">Nuestras Bicicletas</h1>
+
+    <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {products.map(product => (
+        <article class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
+          <div class="h-48 bg-gray-100 overflow-hidden">
+            <img 
+              src={`${product.image_url || '/placeholder-bike.jpg'}?cache=${product.id}`} 
+              alt={product.name || 'Producto sin nombre'}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-4">
+            <h2 class="font-bold text-lg mb-1">{product.name}</h2>
+            <p class="text-gray-600 text-sm mb-2 line-clamp-2">{product.description}</p>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-blue-600">${product.price.toFixed(2)}</span>
+              {product.old_price && (
+                <span class="text-sm text-gray-500 line-through">${product.old_price.toFixed(2)}</span>
+              )}
+            </div>
+            <button 
+              class="mt-3 w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+              onclick={`addToCart(${product.id})`}
+            >
+              Añadir al carrito
+            </button>
+          </div>
+        </article>
+      ))}
+    </div>
+  </main>
+
+  <script>
+    function addToCart(productId) {
+      console.log('Añadiendo producto al carrito:', productId);
+      // Aquí iría tu lógica para añadir al carrito
+    }
+  </script>
+
+<Footer />
+
+</Layout>

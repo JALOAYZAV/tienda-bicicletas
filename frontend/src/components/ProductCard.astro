@@ -1,0 +1,59 @@
+---
+// Frontmatter de Astro (puede recibir props)
+const { product } = Astro.props;
+---
+
+<div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+  <div class="h-48 bg-gray-200 overflow-hidden">
+    {product.image_url ? (
+      <img 
+        src={product.image_url} 
+        alt={product.name}
+        class="w-full h-full object-cover"
+      />
+    ) : (
+      <div class="w-full h-full flex items-center justify-center text-gray-500">
+        Sin imagen
+      </div>
+    )}
+  </div>
+  <div class="p-4">
+    <h3 class="font-bold text-lg mb-1">{product.name}</h3>
+    <p class="text-gray-600 text-sm mb-2 line-clamp-2">{product.description}</p>
+    <div class="flex justify-between items-center">
+      <span class="font-bold text-blue-600">${product.price}</span>
+      {product.old_price && (
+        <span class="text-sm text-gray-500 line-through">${product.old_price}</span>
+      )}
+    </div>
+    <div class="mt-2 text-sm text-gray-500">
+      <span>Stock: {product.stock}</span>
+    </div>
+    <button 
+      class="mt-3 w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+      onclick={`addToCart(${product.id})`}
+    >
+      Añadir al carrito
+    </button>
+  </div>
+</div>
+
+<script>
+  // Función para añadir al carrito (puedes implementarla según tu API)
+  function addToCart(productId) {
+    console.log('Añadiendo producto al carrito:', productId);
+    // Aquí iría tu lógica para añadir al carrito
+    // Ejemplo:
+    // fetch('/api/cart', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ productId, quantity: 1 })
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   if(data.success) {
+    //     alert('Producto añadido al carrito');
+    //   }
+    // });
+  }
+</script>
