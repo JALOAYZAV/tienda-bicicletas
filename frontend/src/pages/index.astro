@@ -1,14 +1,81 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
-  <main class="min-h-screen bg-gray-100 p-8">
-    <h1 class="text-4xl font-bold text-center text-blue-700 mb-4">
-      ¡Bienvenido a la Tienda de Bicicletas!
-    </h1>
-    <p class="text-lg text-center text-gray-600">
-      Descubre nuestras bicicletas y haz tu pedido online.
-    </p>
-  </main>
+    <Header title="Bienvenido a la Tienda de Bicicletas" />
+
+<!-- Main Content -->
+<main class="pt-20">
+    <!-- Hero Section -->
+    <section class="relative h-[600px] bg-gray-900">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+            <div class="text-white max-w-2xl">
+                <h1 class="text-5xl font-bold mb-6">Descubre tu próxima aventura</h1>
+                <p class="text-xl mb-8">Las mejores bicicletas para cada tipo de ciclista</p>
+                <a href="/products" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 inline-block">
+                    Descubre nuestros modelos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Nuestras Categorías</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Mountain Bikes -->
+                <div class="relative group overflow-hidden rounded-lg">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1576858574144-9ae1ebcf5ae5" 
+                            alt="Bicicleta de Montaña"
+                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                        <div class="p-6 w-full">
+                            <h3 class="text-2xl font-bold text-white mb-2">Montaña</h3>
+                            <a href="/products" class="text-white hover:underline">Ver productos →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Urban Bikes -->
+                <div class="relative group overflow-hidden rounded-lg">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1583467875263-d50dec37a88c" 
+                            alt="Bicicleta Urbana"
+                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                        <div class="p-6 w-full">
+                            <h3 class="text-2xl font-bold text-white mb-2">Urbana</h3>
+                            <a href="/products" class="text-white hover:underline">Ver productos →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electric Bikes -->
+                <div class="relative group overflow-hidden rounded-lg">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1571068316344-75bc76f77890" 
+                            alt="Bicicleta Eléctrica"
+                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                        <div class="p-6 w-full">
+                            <h3 class="text-2xl font-bold text-white mb-2">Eléctrica</h3>
+                            <a href="/products" class="text-white hover:underline">Ver productos →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <Footer />
 </Layout>
